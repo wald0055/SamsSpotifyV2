@@ -31,20 +31,18 @@
     overflow: hidden;
   }
 
-  /* Ambient background glow */
   #ambientBg {
     position: fixed;
     inset: 0;
     z-index: 0;
     background-size: cover;
     background-position: center;
-    filter: blur(20px) brightness(0.25) saturate(1.8);
+    filter: blur(15px) brightness(0.25) saturate(1.8);
     transform: scale(1.3);
     transition: background-image 1.2s ease;
     pointer-events: none;
   }
 
-  /* ─── SIDEBAR ─── */
   .sidebar {
     width: 220px;
     min-width: 220px;
@@ -76,11 +74,7 @@
     margin-bottom: 4px;
   }
 
-  .nav-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+  .nav-group { display: flex; flex-direction: column; gap: 4px; }
 
   .nav-btn {
     display: flex;
@@ -103,13 +97,8 @@
   .nav-btn.active { background: var(--green-dim); color: var(--green); }
   .nav-btn svg { flex-shrink: 0; }
 
-  .sidebar-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.07);
-    margin: 10px 0;
-  }
+  .sidebar-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 10px 0; }
 
-  /* ─── MAIN ─── */
   .main {
     flex: 1;
     overflow-y: auto;
@@ -133,29 +122,52 @@
     margin-bottom: 4px;
   }
 
-  .section-header p {
-    font-size: 13px;
-    color: var(--text-muted);
-  }
+  .section-header p { font-size: 13px; color: var(--text-muted); }
 
-  /* ─── SONG LIST ─── */
   #songList { display: flex; flex-direction: column; gap: 2px; }
 
   .song {
     display: grid;
-    grid-template-columns: 24px 46px 1fr auto auto;
+    grid-template-columns: 18px 24px 46px 1fr auto auto;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
     padding: 8px 12px;
     border-radius: 8px;
     cursor: pointer;
     transition: background 0.18s;
     animation: fadeUp 0.3s ease both;
+    user-select: none;
   }
 
   .song:hover { background: var(--bg-card-hover); }
   .song.active { background: var(--green-dim); }
   .song.active .song-title { color: var(--green); }
+  .song.active .song-num { color: var(--green); }
+
+  .song.dragging {
+    opacity: 0.4;
+    background: var(--bg-card);
+  }
+
+  .song.drag-over {
+    background: rgba(29,185,84,0.08);
+    border: 1px solid rgba(29,185,84,0.25);
+  }
+
+  .drag-handle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: opacity 0.15s;
+    flex-shrink: 0;
+    touch-action: none;
+  }
+
+  .song:hover .drag-handle { opacity: 0.6; }
+  .drag-handle:active { cursor: grabbing; }
 
   .song-num {
     font-size: 13px;
@@ -163,8 +175,6 @@
     text-align: center;
     font-variant-numeric: tabular-nums;
   }
-
-  .song.active .song-num { color: var(--green); }
 
   .song-cover {
     width: 46px;
@@ -186,11 +196,7 @@
     transition: color 0.2s;
   }
 
-  .song-artist {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
+  .song-artist { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
   .like-btn {
     background: none;
@@ -206,7 +212,6 @@
   .like-btn:hover { opacity: 1; transform: scale(1.2); }
   .like-btn.liked { opacity: 1; }
 
-  /* ─── PLAYER ─── */
   .player {
     position: fixed;
     bottom: 0;
@@ -224,12 +229,7 @@
     z-index: 100;
   }
 
-  .now-playing {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
-  }
+  .now-playing { display: flex; align-items: center; gap: 12px; min-width: 0; }
 
   .now-cover {
     width: 52px;
@@ -262,24 +262,11 @@
     text-overflow: ellipsis;
   }
 
-  .now-artist {
-    font-size: 11.5px;
-    color: var(--text-muted);
-    margin-top: 2px;
-  }
+  .now-artist { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
 
-  .center-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
+  .center-controls { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 
-  .ctrl-buttons {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .ctrl-buttons { display: flex; align-items: center; gap: 8px; }
 
   .ctrl-btn {
     background: none;
@@ -306,12 +293,7 @@
 
   .ctrl-btn.play-pause:hover { transform: scale(1.06); background: white; }
 
-  .seek-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-  }
+  .seek-row { display: flex; align-items: center; gap: 8px; width: 100%; }
 
   .time-label {
     font-size: 10.5px;
@@ -330,10 +312,7 @@
     cursor: pointer;
   }
 
-  #seekBar {
-    flex: 1;
-    height: 4px;
-  }
+  #seekBar { flex: 1; height: 4px; }
 
   #seekBar::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -349,17 +328,9 @@
   #seekBar:hover::-webkit-slider-thumb { transform: scale(1.3); background: white; }
   #seekBar::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.15); }
 
-  .volume-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-  }
+  .volume-row { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
 
-  #volumeSlider {
-    width: 80px;
-    height: 4px;
-  }
+  #volumeSlider { width: 80px; height: 4px; }
 
   #volumeSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -373,7 +344,6 @@
 
   #volumeSlider::-webkit-slider-runnable-track { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.15); }
 
-  /* ─── FADE IN ─── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -388,7 +358,6 @@
     font-size: 15px;
   }
 
-  /* ─── TABLET ─── */
   @media (max-width: 700px) {
     body { flex-direction: column; height: auto; overflow: auto; }
 
@@ -404,12 +373,7 @@
       z-index: 50;
     }
 
-    .sidebar-title {
-      font-size: 15px;
-      margin-bottom: 0;
-      flex: 1;
-    }
-
+    .sidebar-title { font-size: 15px; margin-bottom: 0; flex: 1; }
     .sidebar-title span { display: none; }
     .sidebar-divider { display: none; }
 
@@ -431,15 +395,12 @@
     }
 
     .nav-btn svg { display: none; }
-
-    .nav-btn.active {
-      background: linear-gradient(90deg, #1db954, #1ed760);
-      color: #000;
-    }
+    .nav-btn.active { background: linear-gradient(90deg, #1db954, #1ed760); color: #000; }
 
     .main { padding: 20px 16px; padding-bottom: 180px; }
     .section-header h1 { font-size: 22px; }
-    .song { grid-template-columns: 20px 40px 1fr auto; gap: 10px; }
+
+    .song { grid-template-columns: 18px 18px 40px 1fr auto; gap: 8px; }
 
     .player {
       grid-template-columns: 1fr;
@@ -453,10 +414,9 @@
     .now-cover { width: 44px; height: 44px; }
   }
 
-  /* ─── MOBILE ─── */
   @media (max-width: 480px) {
     .section-header h1 { font-size: 18px; }
-    .song { grid-template-columns: 18px 36px 1fr auto; gap: 8px; }
+    .song { grid-template-columns: 16px 16px 36px 1fr auto; gap: 7px; }
     .song-cover { width: 36px; height: 36px; }
     .song-title { font-size: 13px; }
     .song-artist { font-size: 11px; }
@@ -471,7 +431,6 @@
 
 <div id="ambientBg"></div>
 
-<!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="sidebar-title">
     <span></span>
@@ -489,7 +448,6 @@
   </div>
 </nav>
 
-<!-- MAIN -->
 <main class="main">
   <div class="section-header">
     <h1 id="sectionTitle">Noah Kahan</h1>
@@ -498,7 +456,6 @@
   <div id="songList"></div>
 </main>
 
-<!-- PLAYER -->
 <footer class="player">
   <div class="now-playing">
     <img class="now-cover" id="nowCover" src="" alt="">
@@ -536,31 +493,40 @@
 <audio id="audio"></audio>
 
 <script>
-const songs = [
-  { title: "Stick Season",           artist: "Noah Kahan", src: "songs/stickseason.mp3",  cover: "covers/cover1.png" },
-  { title: "Northern Attitude",      artist: "Noah Kahan", src: "songs/northern.mp3",      cover: "covers/cover1.png" },
-  { title: "Dial Drunk",             artist: "Noah Kahan", src: "songs/dialdrunk.mp3",     cover: "covers/cover3.jpg" },
-  { title: "All my love",            artist: "Noah Kahan", src: "songs/allmylove.mp3",     cover: "covers/cover1.png" },
-  { title: "Passenger",              artist: "Noah Kahan", src: "songs/passenger.mp3",     cover: "covers/cover5.jpg" },
-  { title: "Orange Juice",           artist: "Noah Kahan", src: "songs/orangejuice.mp3",   cover: "covers/cover1.png" },
-  { title: "Carlo's Song",           artist: "Noah Kahan", src: "songs/carlos.mp3",        cover: "covers/cover6.jpg" },
-  { title: "Deny Deny Deny",         artist: "Noah Kahan", src: "songs/denydeny.mp3",      cover: "covers/cover7.jpg" },
-  { title: "All Them Horses",        artist: "Noah Kahan", src: "songs/allthemhorses.mp3", cover: "covers/cover7.jpg" },
-  { title: "You're Gonna Go Far",    artist: "Noah Kahan", src: "songs/gonnagofar.mp3",    cover: "covers/cover3.jpg" },
-  { title: "Everywhere, Everything", artist: "Noah Kahan", src: "songs/everywhere.mp3",    cover: "covers/cover3.jpg" },
+
+  const defaultSongs = [
   { title: "Maine",                  artist: "Noah Kahan", src: "songs/maine.mp3",         cover: "covers/cover9.jpg" },
-  { title: "Animal",                 artist: "Noah Kahan", src: "songs/animal.mp3",        cover: "covers/cover10.jpg" },
-  { title: "Dan",                    artist: "Noah Kahan", src: "songs/dan.mp3",           cover: "covers/cover7.jpg" },
-  { title: "Staying Still",          artist: "Noah Kahan", src: "songs/stayingstill.mp3",  cover: "covers/cover7.jpg" },
-  { title: "The Great Divide",       artist: "Noah Kahan", src: "songs/greatdivide.mp3",   cover: "covers/cover7.jpg" },
-  { title: "Dashboard",              artist: "Noah Kahan", src: "songs/dashboard.mp3",     cover: "covers/cover7.jpg" },
-  { title: "End of August",          artist: "Noah Kahan", src: "songs/endofaugust.mp3",   cover: "covers/cover7.jpg" },
+  { title: "Blue Star",              artist: "Treaty Oak Revival", src: "songs/bluestar.mp3",     cover: "covers/cover16.jpg" },
+  { title: "Everywhere, Everything", artist: "Noah Kahan", src: "songs/everywhere.mp3",    cover: "covers/cover3.jpg" },
+  { title: "Fool's Gold",            artist: "Buffalo Traffic Jam", src: "songs/foolsgold.mp3",  cover: "covers/cover15.jpg" },
+  { title: "Dial Drunk",             artist: "Noah Kahan", src: "songs/dialdrunk.mp3",     cover: "covers/cover3.jpg" },
   { title: "Orbiter",                artist: "Noah Kahan", src: "songs/orbiter.mp3",       cover: "covers/cover7.jpg" },
+  { title: "Dan",                    artist: "Noah Kahan", src: "songs/dan.mp3",           cover: "covers/cover7.jpg" },
+  { title: "Sun to Me",              artist: "Zach Bryan", src: "songs/suntome.mp3",       cover: "covers/cover11.png" },
+  { title: "All Them Horses",        artist: "Noah Kahan", src: "songs/allthemhorses.mp3", cover: "covers/cover7.jpg" },
+  { title: "Stick Season",           artist: "Noah Kahan", src: "songs/stickseason.mp3",  cover: "covers/cover1.png" },
+  { title: "Staying Still",          artist: "Noah Kahan", src: "songs/stayingstill.mp3",  cover: "covers/cover7.jpg" },
+  { title: "Blue",                   artist: "Zach Bryan", src: "songs/blue.mp3",          cover: "covers/cover11.png" },
   { title: "American Cars",          artist: "Noah Kahan", src: "songs/americancars.mp3",  cover: "covers/cover7.jpg" },
+  { title: "Orange Juice",           artist: "Noah Kahan", src: "songs/orangejuice.mp3",   cover: "covers/cover1.png" },
+  { title: "Passenger",              artist: "Noah Kahan", src: "songs/passenger.mp3",     cover: "covers/cover5.jpg" },
+  { title: "Sarah's Place",          artist: "Zach Bryan (feat. Noah Kahan)", src: "songs/sarahsplace.mp3", cover: "covers/cover14.jpg" },
+  { title: "Northern Attitude",      artist: "Noah Kahan", src: "songs/northern.mp3",      cover: "covers/cover1.png" },
+  { title: "Deny Deny Deny",         artist: "Noah Kahan", src: "songs/denydeny.mp3",      cover: "covers/cover7.jpg" },
+  { title: "End of August",          artist: "Noah Kahan", src: "songs/endofaugust.mp3",   cover: "covers/cover7.jpg" },
+  { title: "Carlo's Song",           artist: "Noah Kahan", src: "songs/carlos.mp3",        cover: "covers/cover6.jpg" },
+  { title: "Animal",                 artist: "Noah Kahan", src: "songs/animal.mp3",        cover: "covers/cover10.jpg" },
+  { title: "You're Gonna Go Far",    artist: "Noah Kahan", src: "songs/gonnagofar.mp3",    cover: "covers/cover3.jpg" },
+  { title: "Talkin' Tennessee",      artist: "Morgan Wallen", src: "songs/talkintennessee.mp3", cover: "covers/cover12.jpg" },
+  { title: "Dashboard",              artist: "Noah Kahan", src: "songs/dashboard.mp3",     cover: "covers/cover7.jpg" },
+  { title: "All my love",            artist: "Noah Kahan", src: "songs/allmylove.mp3",     cover: "covers/cover1.png" },
+  { title: "The Great Divide",       artist: "Noah Kahan", src: "songs/greatdivide.mp3",   cover: "covers/cover7.jpg" },
   { title: "Doors",                  artist: "Noah Kahan", src: "songs/doors.mp3",         cover: "covers/cover7.jpg" },
 ];
 
-let current = -1;
+let songs = JSON.parse(localStorage.getItem("songs_order_sam") || "null") || defaultSongs;
+
+let currentSrc = null;
 let playing = false;
 let showingLiked = false;
 let likedSongs = JSON.parse(localStorage.getItem("likedSongs_sam") || "[]");
@@ -575,10 +541,11 @@ const nowCover  = document.getElementById("nowCover");
 const ambientBg = document.getElementById("ambientBg");
 const currentTimeEl = document.getElementById("currentTime");
 const totalTimeEl   = document.getElementById("totalTime");
-const songList  = document.getElementById("songList");
+const songListEl    = document.getElementById("songList");
 
 const PLAY_SVG  = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
 const PAUSE_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+const HANDLE_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 3h2v2H9V3zm4 0h2v2h-2V3zM9 7h2v2H9V7zm4 0h2v2h-2V7zM9 11h2v2H9v-2zm4 0h2v2h-2v-2zM9 15h2v2H9v-2zm4 0h2v2h-2v-2zM9 19h2v2H9v-2zm4 0h2v2h-2v-2z"/></svg>`;
 
 function fmt(s) {
   if (!s || isNaN(s)) return "0:00";
@@ -587,54 +554,78 @@ function fmt(s) {
   return `${m}:${sec}`;
 }
 
+function saveOrder() {
+  localStorage.setItem("songs_order_sam", JSON.stringify(songs));
+}
+
+function currentSong() {
+  return songs.find(s => s.src === currentSrc) || null;
+}
+
+function currentIndex() {
+  return songs.findIndex(s => s.src === currentSrc);
+}
+
 function renderSongs() {
-  songList.innerHTML = "";
+  songListEl.innerHTML = "";
   const list = showingLiked
-    ? songs.map((s, i) => ({ s, i })).filter(({ i }) => likedSongs.includes(i))
-    : songs.map((s, i) => ({ s, i }));
+    ? songs.filter(s => likedSongs.includes(s.src))
+    : songs;
 
   if (list.length === 0) {
-    songList.innerHTML = `<div class="empty-state">No liked songs yet — tap 🤍 to save your favourites</div>`;
+    songListEl.innerHTML = `<div class="empty-state">No liked songs yet — tap 🤍 to save your favourites</div>`;
     return;
   }
 
-  list.forEach(({ s, i }, rowNum) => {
+  list.forEach((s, rowNum) => {
+    const isActive = s.src === currentSrc;
+    const isLiked = likedSongs.includes(s.src);
+
     const div = document.createElement("div");
-    div.className = "song" + (i === current ? " active" : "");
+    div.className = "song" + (isActive ? " active" : "");
     div.style.animationDelay = `${rowNum * 0.03}s`;
+    div.dataset.src = s.src;
+
     div.innerHTML = `
+      <div class="drag-handle" title="Drag to reorder">${HANDLE_SVG}</div>
       <div class="song-num">${rowNum + 1}</div>
       <img class="song-cover" src="${s.cover}" alt="${s.title}" onerror="this.style.background='#1a2420'">
       <div class="song-info">
         <div class="song-title">${s.title}</div>
         <div class="song-artist">${s.artist}</div>
       </div>
-      <button class="like-btn ${likedSongs.includes(i) ? 'liked' : ''}" title="Like">${likedSongs.includes(i) ? '❤️' : '🤍'}</button>
+      <button class="like-btn ${isLiked ? 'liked' : ''}" title="Like">${isLiked ? '❤️' : '🤍'}</button>
     `;
 
-    div.addEventListener("click", () => playSong(i));
-    div.querySelector(".like-btn").addEventListener("click", e => {
-      e.stopPropagation();
-      toggleLike(i);
+    div.addEventListener("click", e => {
+      if (e.target.closest(".drag-handle") || e.target.closest(".like-btn")) return;
+      playSong(s.src);
     });
 
-    songList.appendChild(div);
+    div.querySelector(".like-btn").addEventListener("click", e => {
+      e.stopPropagation();
+      toggleLike(s.src);
+    });
+
+    setupDrag(div);
+    songListEl.appendChild(div);
   });
 }
 
-function toggleLike(i) {
-  if (likedSongs.includes(i)) {
-    likedSongs = likedSongs.filter(x => x !== i);
+function toggleLike(src) {
+  if (likedSongs.includes(src)) {
+    likedSongs = likedSongs.filter(x => x !== src);
   } else {
-    likedSongs.push(i);
+    likedSongs.push(src);
   }
   localStorage.setItem("likedSongs_sam", JSON.stringify(likedSongs));
   renderSongs();
 }
 
-function playSong(i) {
-  current = i;
-  const song = songs[i];
+function playSong(src) {
+  currentSrc = src;
+  const song = songs.find(s => s.src === src);
+  if (!song) return;
   audio.src = song.src;
   audio.volume = parseFloat(volSlider.value);
   audio.play().catch(() => {});
@@ -651,7 +642,7 @@ function playSong(i) {
 }
 
 function togglePlay() {
-  if (current < 0) { playSong(0); return; }
+  if (!currentSrc) { if (songs.length) playSong(songs[0].src); return; }
   if (playing) {
     audio.pause();
     playBtn.innerHTML = PLAY_SVG;
@@ -665,15 +656,16 @@ function togglePlay() {
 }
 
 function nextSong() {
-  playSong((current + 1) % songs.length);
+  const list = showingLiked ? songs.filter(s => likedSongs.includes(s.src)) : songs;
+  const idx = list.findIndex(s => s.src === currentSrc);
+  playSong(list[(idx + 1) % list.length].src);
 }
 
 function prevSong() {
-  if (audio.currentTime > 3) {
-    audio.currentTime = 0;
-    return;
-  }
-  playSong((current - 1 + songs.length) % songs.length);
+  if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+  const list = showingLiked ? songs.filter(s => likedSongs.includes(s.src)) : songs;
+  const idx = list.findIndex(s => s.src === currentSrc);
+  playSong(list[(idx - 1 + list.length) % list.length].src);
 }
 
 function showAllSongs() {
@@ -707,13 +699,89 @@ seekBar.addEventListener("input", () => {
   audio.currentTime = (seekBar.value / 100) * audio.duration;
 });
 
-volSlider.addEventListener("input", () => {
-  audio.volume = volSlider.value;
-});
-
+volSlider.addEventListener("input", () => { audio.volume = volSlider.value; });
 audio.addEventListener("ended", nextSong);
-
 audio.volume = parseFloat(volSlider.value);
+
+/* ── DRAG AND DROP ── */
+let dragSrc = null;
+
+function setupDrag(el) {
+  const handle = el.querySelector(".drag-handle");
+
+  handle.addEventListener("mousedown", e => {
+    e.preventDefault();
+    dragSrc = el;
+    el.classList.add("dragging");
+
+    const onMove = e => {
+      const target = document.elementFromPoint(e.clientX, e.clientY)?.closest(".song");
+      document.querySelectorAll(".song.drag-over").forEach(d => d.classList.remove("drag-over"));
+      if (target && target !== dragSrc) target.classList.add("drag-over");
+    };
+
+    const onUp = e => {
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+      el.classList.remove("dragging");
+
+      const target = document.elementFromPoint(e.clientX, e.clientY)?.closest(".song");
+      document.querySelectorAll(".song.drag-over").forEach(d => d.classList.remove("drag-over"));
+
+      if (target && target !== dragSrc) {
+        dropReorder(dragSrc.dataset.src, target.dataset.src);
+      }
+      dragSrc = null;
+    };
+
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+  });
+
+  /* touch support */
+  handle.addEventListener("touchstart", e => {
+    e.preventDefault();
+    dragSrc = el;
+    el.classList.add("dragging");
+
+    const onMove = e => {
+      const t = e.touches[0];
+      const target = document.elementFromPoint(t.clientX, t.clientY)?.closest(".song");
+      document.querySelectorAll(".song.drag-over").forEach(d => d.classList.remove("drag-over"));
+      if (target && target !== dragSrc) target.classList.add("drag-over");
+    };
+
+    const onEnd = e => {
+      handle.removeEventListener("touchmove", onMove);
+      handle.removeEventListener("touchend", onEnd);
+      el.classList.remove("dragging");
+
+      const t = e.changedTouches[0];
+      const target = document.elementFromPoint(t.clientX, t.clientY)?.closest(".song");
+      document.querySelectorAll(".song.drag-over").forEach(d => d.classList.remove("drag-over"));
+
+      if (target && target !== dragSrc) {
+        dropReorder(dragSrc.dataset.src, target.dataset.src);
+      }
+      dragSrc = null;
+    };
+
+    handle.addEventListener("touchmove", onMove, { passive: false });
+    handle.addEventListener("touchend", onEnd);
+  }, { passive: false });
+}
+
+function dropReorder(fromSrc, toSrc) {
+  const fromIdx = songs.findIndex(s => s.src === fromSrc);
+  const toIdx   = songs.findIndex(s => s.src === toSrc);
+  if (fromIdx === -1 || toIdx === -1) return;
+
+  const [moved] = songs.splice(fromIdx, 1);
+  songs.splice(toIdx, 0, moved);
+  saveOrder();
+  renderSongs();
+}
+
 renderSongs();
 </script>
 </body>
